@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will You Be Mine?</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        .heartbeat {
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-pink-50 min-h-screen flex items-center justify-center">
+    <div class="max-w-md mx-auto p-8 bg-white rounded-xl shadow-2xl text-center">
+        <div class="heartbeat text-red-500 text-6xl mb-6">
+            <i class="fas fa-heart"></i>
+        </div>
+        <h1 class="text-4xl font-bold text-pink-600 mb-6 font-dancing">My Dearest Love,</h1>
+        <p class="text-lg text-gray-700 mb-8">
+            From the moment we met, my life has been filled with joy and meaning.<br>
+            Every day with you is a blessing I cherish deeply.
+        </p>
+        <div class="mb-8">
+            <p class="text-2xl text-pink-500 font-dancing">I LOVE YOU PANDA </p>
+        </div>
+        <div class="flex justify-center space-x-4">
+            <button id="yesBtn" class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-full transition-all duration-300 transform hover:scale-105">
+                Yes! <i class="fas fa-heart ml-2"></i>
+            </button>
+            
+        </div>
+        <div id="response" class="mt-8 hidden">
+            <p class="text-3xl text-pink-600 font-dancing">I love you! ❤️</p>
+            <p class="text-lg text-gray-600 mt-2">Let's begin our forever journey together...</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.getElementById('response').classList.remove('hidden');
+            this.classList.add('animate-bounce');
+            confetti({
+                particleCount: 150,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        });
+
+      document.getElementById('noBtn').addEventListener('mouseover', function() {
+            const x = Math.random() * (window.innerWidth - this.offsetWidth);
+            const y = Math.random() * (window.innerHeight - this.offsetHeight);
+            this.style.position = 'absolute';
+            this.style.left = `${x}px`;
+            this.style.top = `${y}px`;
+        });
+
+        function confetti({ particleCount, spread, origin }) {
+            for (let i = 0; i < particleCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.innerHTML = ['❤️', '💖', '💕', '💘'][Math.floor(Math.random() * 4)];
+                confetti.style.position = 'fixed';
+                confetti.style.fontSize = `${Math.random() * 20 + 10}px`;
+                confetti.style.left = `${Math.random() * 100}vw`;
+                confetti.style.top = '0';
+                confetti.style.opacity = Math.random();
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear forwards`;
+                
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => {
+                    confetti.remove();
+                }, 3000);
+            }
+            
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes fall {
+                    to {
+                        transform: translateY(100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>
